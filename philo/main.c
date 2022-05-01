@@ -6,7 +6,7 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 11:06:35 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/01 22:34:07 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/01 23:38:41 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,14 @@ int	check_philo(t_info	*info)
 				return (1);
 			}	
 		}
-		if (curr_time - info->phil[i]->lte > info->t_die && info->phil[i]->food_counter < info->n_to_win)
+		if (curr_time - info->phil[i]->lte > info->t_die)
 		{
-			print_event(5, info->phil[i], info);
-			info->stop_ind = 1;
-			return (1);
+			if (info->phil[i]->food_counter < info->n_to_win || info->n_to_win == -1)
+			{
+				print_event(5, info->phil[i], info);
+				info->stop_ind = 1;
+				return (1);
+			}
 		}
 		i++;
 	}
@@ -59,6 +62,12 @@ void	*checker(void *data)
 	t_info		*info;
 
 	info = (t_info *)data;
+	if (info->num_p == 1)
+	{
+		wait_phil(info->t_die);
+		print_event(5, info->phil[0], info);
+		return (NULL);
+	}
 	while (1)
 	{
 		if (check_philo(info))

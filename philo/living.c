@@ -6,7 +6,7 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 13:18:18 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/01 22:14:58 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/01 23:26:53 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,14 @@ void	*living(void *data)
 
 	phil = (t_phil *)data;
 	info = phil->info;
+	if (info->num_p == 1)
+	{
+		wait_phil(info->t_die);
+		return (NULL);
+	}
 	while (1)
 	{
-		if (info->stop_ind || phil->food_counter >= info->n_to_win)
+		if (info->stop_ind || (phil->food_counter >= info->n_to_win && info->n_to_win != -1))
 			return (NULL);
 		if ((phil->id % 2 == 0) && phil->id + 1 != info->num_p)
 			eating_even(phil, info);
