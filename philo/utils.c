@@ -6,7 +6,7 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 11:14:06 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/01 18:58:20 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/01 22:24:24 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_numeric(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] > '9' || str[i] < '0')
+		if ((str[i] > '9' || str[i] < '0') && str[i] != '+' && str[i] != '-')
 			return (-1);
 		i++;
 	}

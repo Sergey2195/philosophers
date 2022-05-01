@@ -6,7 +6,7 @@ SRC	=	before_end.c error.c ft_atoi.c init.c living.c main.c utils.c
 
 CC 		= gcc
 
-FLAGS	= -Wall -Wextra -Werror
+FLAGS	= -Wall -Wextra -Werror -pthread
 
 OBJS 	= $(SRC:.c=.o)
 
