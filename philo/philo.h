@@ -6,7 +6,7 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 11:06:54 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/01 18:58:08 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/03 15:17:27 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,8 @@ void		*living(void *data);
 void		wait_phil(long long time);
 void		print_event(int ind, t_phil *phil, t_info *info);
 void		before_end(t_info *info);
+void		thinking(t_phil *phil, t_info *info);
+void		eating_odd(t_phil *phil, t_info *info);
+void		eating_even(t_phil *phil, t_info *info);
+void		sleeping(t_phil *phil, t_info *info);
 #endif

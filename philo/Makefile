@@ -2,7 +2,7 @@ NAME = philo
 
 HEADER	=	philo.h
 
-SRC	=	before_end.c error.c ft_atoi.c init.c living.c main.c utils.c
+SRC	=	before_end.c error.c ft_atoi.c init.c living.c main.c utils.c living2.c
 
 CC 		= gcc
 

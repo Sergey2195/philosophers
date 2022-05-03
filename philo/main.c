@@ -6,7 +6,7 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 11:06:35 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/01 23:38:41 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/03 15:24:16 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	everyone_is_fed(t_info *info)
 			return (0);
 		i++;
 	}
+	info->stop_ind = 1;
 	return (1);
 }
 
@@ -38,14 +39,12 @@ int	check_philo(t_info	*info)
 		if (info->n_to_win != -1)
 		{
 			if (everyone_is_fed(info))
-			{
-				info->stop_ind = 1;
 				return (1);
-			}	
 		}
 		if (curr_time - info->phil[i]->lte > info->t_die)
 		{
-			if (info->phil[i]->food_counter < info->n_to_win || info->n_to_win == -1)
+			if (info->phil[i]->food_counter < info->n_to_win
+				|| info->n_to_win == -1)
 			{
 				print_event(5, info->phil[i], info);
 				info->stop_ind = 1;
