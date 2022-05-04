@@ -6,7 +6,7 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 17:12:09 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/01 18:37:07 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/04 19:49:33 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ void	before_end(t_info *info)
 	i = 0;
 	while (i < info->num_p)
 	{
-		pthread_mutex_unlock(&info->forks[i]);
 		pthread_mutex_destroy(&info->forks[i]);
 		i++;
 	}
-	pthread_mutex_unlock(&info->status_write);
 	pthread_mutex_destroy(&info->status_write);
+	pthread_mutex_destroy(&info->status_stop);
+	pthread_mutex_destroy(&info->status_lte);
 	all_free(info);
 }

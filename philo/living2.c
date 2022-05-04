@@ -6,7 +6,7 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:13:47 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/03 15:21:57 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/04 20:44:59 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ void	eating_even(t_phil *phil, t_info *info)
 	print_event(1, phil, info);
 	pthread_mutex_lock(&info->forks[phil->left_f]);
 	print_event(0, phil, info);
+	pthread_mutex_lock(&info->status_lte);
 	phil->food_counter++;
 	phil->lte = ft_time();
+	pthread_mutex_unlock(&info->status_lte);
 	print_event(2, phil, info);
 	wait_phil(info->t_eat);
 	pthread_mutex_unlock(&info->forks[phil->left_f]);
@@ -38,8 +40,10 @@ void	eating_odd(t_phil *phil, t_info *info)
 	print_event(0, phil, info);
 	pthread_mutex_lock(&info->forks[phil->right_f]);
 	print_event(1, phil, info);
+	pthread_mutex_lock(&info->status_lte);
 	phil->food_counter++;
 	phil->lte = ft_time();
+	pthread_mutex_unlock(&info->status_lte);
 	print_event(2, phil, info);
 	wait_phil(info->t_eat);
 	pthread_mutex_unlock(&info->forks[phil->left_f]);

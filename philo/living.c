@@ -6,20 +6,41 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 13:18:18 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/03 15:15:48 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/04 20:39:47 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+int	check_stop(t_info *info)
+{
+	pthread_mutex_lock(&info->status_stop);
+	if (info->stop_ind)
+	{
+		pthread_mutex_unlock(&info->status_stop);
+		return (1);
+	}
+	else
+	{
+		pthread_mutex_unlock(&info->status_stop);
+		return (0);
+	}
+}
+
 void	print_event(int ind, t_phil *phil, t_info *info)
 {
 	long long	current_time;
 
-	if (info->stop_ind)
-		return ;
 	current_time = ft_time() - info->start_time;
 	pthread_mutex_lock(&info->status_write);
+	pthread_mutex_lock(&info->status_stop);
+	if (info->stop_ind)
+	{
+		pthread_mutex_unlock(&info->status_stop);
+		pthread_mutex_unlock(&info->status_write);
+		return ;
+	}
+	pthread_mutex_unlock(&info->status_stop);
 	if (ind == 0)
 		printf("%lld %d has taken a fork\n", current_time, phil->id + 1);
 	if (ind == 1)
@@ -35,24 +56,6 @@ void	print_event(int ind, t_phil *phil, t_info *info)
 	pthread_mutex_unlock(&info->status_write);
 }
 
-int	living_cycle(t_phil *phil, t_info *info)
-{
-	if (info->stop_ind || (phil->food_counter >= info->n_to_win
-			&& info->n_to_win != -1))
-		return (1);
-	if ((phil->id % 2 == 0) && phil->id + 1 != info->num_p)
-		eating_even(phil, info);
-	else
-		eating_odd(phil, info);
-	if (info->stop_ind)
-		return (1);
-	sleeping(phil, info);
-	if (info->stop_ind)
-		return (1);
-	thinking(phil, info);
-	return (0);
-}
-
 void	*living(void *data)
 {
 	t_phil	*phil;
@@ -60,15 +63,20 @@ void	*living(void *data)
 
 	phil = (t_phil *)data;
 	info = phil->info;
-	if (info->num_p == 1)
-	{
-		wait_phil(info->t_die);
-		return (NULL);
-	}
 	while (1)
 	{
-		if (living_cycle(phil, info))
+		if (check_stop(info))
 			return (NULL);
+		if ((phil->id % 2 == 0) && phil->id + 1 != info->num_p)
+			eating_even(phil, info);
+		else
+			eating_odd(phil, info);
+		if (check_stop(info))
+			return (NULL);
+		sleeping(phil, info);
+		if (check_stop(info))
+			return (NULL);
+		thinking(phil, info);
 	}
 	return (NULL);
 }
