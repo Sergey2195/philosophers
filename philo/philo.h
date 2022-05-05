@@ -6,7 +6,7 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 11:06:54 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/04 19:53:59 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/05 08:48:10 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,5 @@ void		eating_odd(t_phil *phil, t_info *info);
 void		eating_even(t_phil *phil, t_info *info);
 void		sleeping(t_phil *phil, t_info *info);
 void		init_mutex_status(t_info *info);
+void		*solo_phil(void *data);
 #endif

@@ -6,11 +6,21 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 13:18:18 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/04 20:39:47 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/05 08:52:40 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	*solo_phil(void *data)
+{
+	t_info	*info;
+
+	info = (t_info *)data;
+	wait_phil(info->t_die);
+	print_event(5, info->phil[0], info);
+	return (NULL);
+}
 
 int	check_stop(t_info *info)
 {

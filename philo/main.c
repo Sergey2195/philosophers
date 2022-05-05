@@ -6,7 +6,7 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 11:06:35 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/04 20:36:27 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/05 08:48:57 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,14 @@ int	start_threads(t_info *info)
 	info->thr_id_arr = (pthread_t *)malloc(sizeof(pthread_t) * info->num_p);
 	if (info->thr_id_arr == NULL)
 		malloc_error();
+	if (info->num_p == 1)
+	{
+		if (pthread_create(&info->thr_id_arr[i], NULL,
+				solo_phil, (void *)info) != 0)
+			return (-1);
+		wait_phil(info->t_die);
+		return (0);
+	}
 	while (i < info->num_p)
 	{
 		if (pthread_create(&info->thr_id_arr[i], NULL,
