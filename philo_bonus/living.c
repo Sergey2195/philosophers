@@ -6,7 +6,7 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:40:02 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/06 19:20:11 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/06 20:24:42 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ void	*checker(void *data)
 			print_action(4, philo, philo->info);
 			sem_wait(philo->info->stop_check);
 			philo->info->stop_ind = 1;
-			sem_wait(philo->info->printing);//
+			sem_wait(philo->info->printing);
 			sem_post(philo->info->stop_check);
 			sem_post(philo->info->lte_check);
 			break ;
 		}
-		if (philo->food_counter >= philo->info->n_to_win)
+		if (philo->food_counter >= philo->info->n_to_win && philo->info->n_to_win != -1)
 		{
 			sem_wait(philo->info->stop_check);
 			philo->info->stop_ind = 1;
@@ -113,6 +113,5 @@ void	start_living(t_philo *philo)
 		sem_post(philo->info->stop_check);
 		exit(EXIT_FAILURE);
 	}
-	sem_post(philo->info->stop_check);
 	exit(EXIT_SUCCESS);
 }
