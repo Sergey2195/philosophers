@@ -1,0 +1,35 @@
+1 4 has taken a fork
+1 4 has taken a fork
+1 4 is eating
+201 4 is sleeping
+401 4 is thinking
+402 4 has taken a fork
+402 4 has taken a fork
+402 4 is eating
+1 2 has taken a fork
+1 2 has taken a fork
+1 2 is eating
+201 2 is sleeping
+401 2 is thinking
+402 2 has taken a fork
+402 2 has taken a fork
+402 2 is eating
+1 3 has taken a fork
+1 3 has taken a fork
+1 3 is eating
+201 3 is sleeping
+401 3 is thinking
+402 3 has taken a fork
+402 3 has taken a fork
+402 3 is eating
+1 1 has taken a fork
+1 1 has taken a fork
+1 1 is eating
+201 1 is sleeping
+401 1 is thinking
+402 1 has taken a fork
+402 1 has taken a fork
+402 1 is eating
+!!!!
+256
+!!!

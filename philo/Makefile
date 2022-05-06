@@ -6,12 +6,14 @@ SRC	=	before_end.c error.c ft_atoi.c init.c living.c main.c utils.c living2.c
 
 CC 		= gcc
 
-FLAGS	= -Wall -Wextra -Werror -pthread
+FLAGS	= -Wall -Wextra -Werror
+
+LINKS	=	-lpthread
 
 OBJS 	= $(SRC:.c=.o)
 
 $(NAME): $(OBJS)
-	$(CC) $(FLAGS) $(SRC) -o $(NAME)
+	$(CC) $(FLAGS) $(LINKS) $(SRC) -o $(NAME)
 
 all: $(NAME) $(OBJS) $(HEADER)
 

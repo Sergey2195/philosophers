@@ -6,7 +6,7 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 13:18:18 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/05 08:52:40 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/06 12:51:35 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	*living(void *data)
 
 	phil = (t_phil *)data;
 	info = phil->info;
+	if (phil->id % 2)
+		usleep(100);
 	while (1)
 	{
 		if (check_stop(info))
