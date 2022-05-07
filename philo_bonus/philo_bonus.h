@@ -6,7 +6,7 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:34:02 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/07 14:29:41 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/07 15:27:43 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_info
 	sem_t			*forks;
 	sem_t			*printing;
 	sem_t			*lte_check;
+	sem_t			*dead_check;
 }	t_info;
 
 int			ft_atoi(const char *str);

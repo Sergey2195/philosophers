@@ -2,14 +2,14 @@ NAME = philo_bonus
 
 HEADER	=	philo_bonus.h
 
-SRC	=	check_arg.c error.c ft_atoi.c init.c living.c living2.c main_bonus.c utils.c
+SRC	=	check_arg.c error.c ft_atoi.c init.c living.c main_bonus.c utils.c
 
 CC 		= gcc
 
 FLAGS	= 
 
-LINKS	=	-lpthread -fsanitize=thread
-# LINKS	=	-lpthread
+# LINKS	=	-lpthread -fsanitize=thread
+LINKS	=	-lpthread
 
 OBJS 	= $(SRC:.c=.o)
 

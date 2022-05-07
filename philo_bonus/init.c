@@ -6,7 +6,7 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:29:51 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/07 13:44:19 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/07 16:27:29 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,14 @@ void	init_philo(t_info *info)
 
 int	init_semaph(t_info *info)
 {
-	sem_unlink("/p_forks");
-	sem_unlink("/p_printing");
-	sem_unlink("/lte_check");
-	info->forks = sem_open("/p_forks", O_CREAT, S_IRWXU, info->num_p);
-	info->printing = sem_open("/p_printing", O_CREAT, S_IRWXU, 1);
-	info->lte_check = sem_open("/lte_check", O_CREAT, S_IRWXU, 1);
+	sem_unlink("p_forks");
+	sem_unlink("p_printing");
+	sem_unlink("lte_check");
+	sem_unlink("dead_check");
+	info->forks = sem_open("p_forks", O_CREAT, S_IRWXU, info->num_p);
+	info->printing = sem_open("p_printing", O_CREAT, S_IRWXU, 1);
+	info->lte_check = sem_open("lte_check", O_CREAT, S_IRWXU, 1);
+	info->dead_check = sem_open("dead_check", O_CREAT, S_IRWXU, 1);
 	if (info->forks == SEM_FAILED || info->printing == SEM_FAILED || info->lte_check == SEM_FAILED)
 			return (-1);
 	else

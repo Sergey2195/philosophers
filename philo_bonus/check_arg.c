@@ -6,7 +6,7 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:30:40 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/06 14:32:37 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/07 16:26:43 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	check_vars(t_info *info)
 	}
 	if (info->n_to_win == 0)
 	{
-		printf("Simulation end\n");
 		exit(EXIT_SUCCESS);
 	}
 }
