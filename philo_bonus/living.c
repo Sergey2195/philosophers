@@ -6,20 +6,20 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:40:02 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/06 20:24:42 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/07 14:22:51 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void	sleep_philo(t_philo *philo)
-{
-	t_info	*info;
+// void	sleep_philo(t_philo *philo)
+// {
+// 	t_info	*info;
 
-	info = philo->info;
-	print_action(2, philo, info);
-	wait_phil(info->t_sleep);
-}
+// 	info = philo->info;
+// 	print_action(2, philo, info);
+// 	wait_phil(info->t_sleep);
+// }
 
 void	eating(t_philo *philo)
 {
@@ -27,91 +27,90 @@ void	eating(t_philo *philo)
 
 	info = philo->info;
 	sem_wait(info->forks);
-	print_action(0, philo, info);
+	action_print(info, philo->id, "has taken a fork");
 	sem_wait(info->forks);
-	print_action(0, philo, info);
-	print_action(1, philo, info);
+	action_print(info, philo->id, "has taken a fork");
 	sem_wait(info->lte_check);
+	action_print(info, philo->id, "is eating");
 	philo->lte = ft_time();
 	philo->food_counter++;
 	sem_post(info->lte_check);
-	wait_phil(info->t_eat);
+	wait_phil(info->t_eat, info);
 	sem_post(info->forks);
 	sem_post(info->forks);
 }
 
 void	*checker(void *data)
 {
-	t_philo		*philo;
-	int			ind;
+	t_philo	*philo;
+	t_info	*info;
 
 	philo = (t_philo *)data;
-	ind = 0;
-	while (1)
+	info = philo->info;
+	while (42)
 	{
-		sem_wait(philo->info->lte_check);
-		if (ft_time() - philo->lte > philo->info->t_die)
+		sem_wait(info->lte_check);
+		if (ft_time() - philo->lte > info->t_die)
 		{
-			print_action(4, philo, philo->info);
-			sem_wait(philo->info->stop_check);
-			philo->info->stop_ind = 1;
-			sem_wait(philo->info->printing);
-			sem_post(philo->info->stop_check);
-			sem_post(philo->info->lte_check);
-			break ;
+			action_print(info, philo->id, "died");
+			info->died_ind = 1;
+			sem_wait(info->printing);
+			exit(1);
 		}
-		if (philo->food_counter >= philo->info->n_to_win && philo->info->n_to_win != -1)
-		{
-			sem_wait(philo->info->stop_check);
-			philo->info->stop_ind = 1;
-			sem_post(philo->info->stop_check);
-			sem_post(philo->info->lte_check);
+		sem_post(info->lte_check);
+		if (info->died_ind) //data races?
 			break ;
-		}
-		sem_post(philo->info->lte_check);
 		usleep(1000);
+		if (philo->food_counter >= info->n_to_win && info->n_to_win != -1) //data races?
+			break ;
 	}
 	return (NULL);
 }
 
-int	check_continuation(t_philo *philo)
+// int	check_continuation(t_philo *philo)
+// {
+// 	sem_wait(philo->info->stop_check);
+// 	if (philo->info->stop_ind)
+// 	{
+// 		sem_post(philo->info->stop_check);
+// 		return (1);
+// 	}
+// 	sem_post(philo->info->stop_check);
+// 	return (0);
+// }
+
+int	died_check(t_info *info)
 {
-	sem_wait(philo->info->stop_check);
-	if (philo->info->stop_ind)
+	sem_wait(info->lte_check);
+	if (info->died_ind)
 	{
-		sem_post(philo->info->stop_check);
+		sem_post(info->lte_check);
 		return (1);
 	}
-	sem_post(philo->info->stop_check);
+	sem_post(info->lte_check);
 	return (0);
 }
 
-void	start_living(t_philo *philo)
+void	start_living(void *data)
 {
+	t_philo	*philo;
+	t_info	*info;
+
+	philo = (t_philo *)data;
+	info = philo->info;
 	philo->lte = ft_time();
-	if (pthread_create(&philo->checker, NULL, checker, (void *)philo) != 0)
+	pthread_create(&(philo->checker), NULL, checker, data);
+	while (!(info->died_ind))
 	{
-		pthread_error();
-		return ;
-	}
-	while (1)
-	{
-		if (check_continuation(philo))
-			break ;
 		eating(philo);
-		if (check_continuation(philo))
+		if (philo->food_counter >= info->n_to_win && info->n_to_win != -1)
 			break ;
-		sleep_philo(philo);
-		if (check_continuation(philo))
-			break ;
-		print_action(3, philo, philo->info);
+		action_print(info, philo->id, "is sleeping");
+		wait_phil(info->t_sleep, info);
+		action_print(info, philo->id, "is thinking");
 	}
 	pthread_join(philo->checker, NULL);
-	sem_wait(philo->info->stop_check);
-	if (philo->info->stop_ind)
-	{
-		sem_post(philo->info->stop_check);
-		exit(EXIT_FAILURE);
-	}
-	exit(EXIT_SUCCESS);
+	if (died_check(info))
+		exit(1);
+	exit(0);
 }
