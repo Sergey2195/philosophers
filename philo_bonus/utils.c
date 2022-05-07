@@ -6,7 +6,7 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:39:06 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/07 13:23:32 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/07 15:03:00 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	wait_phil(long long time, t_info *info)
 	long long	c_time;
 
 	c_time = ft_time();
-	while (!(info->died_ind))
+	while (1)
 	{
 		if (ft_time() - c_time >= time)
 			break;

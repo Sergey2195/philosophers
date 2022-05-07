@@ -8,7 +8,8 @@ CC 		= gcc
 
 FLAGS	= 
 
-LINKS	=	-lpthread
+LINKS	=	-lpthread -fsanitize=thread
+# LINKS	=	-lpthread
 
 OBJS 	= $(SRC:.c=.o)
 

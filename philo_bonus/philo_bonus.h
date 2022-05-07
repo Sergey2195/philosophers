@@ -6,23 +6,25 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:34:02 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/06 14:48:29 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/07 14:29:41 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_BONUS_H
 # define PHILO_BONUS_H
 
-# include <stdio.h>
-# include <string.h>
-# include <unistd.h>
-# include <errno.h>
-# include <stdlib.h>
 # include <sys/time.h>
-# include <pthread.h>
-# include <fcntl.h>
-# include <semaphore.h>
+# include <sys/wait.h>
 # include <signal.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <pthread.h>
+# include <semaphore.h>
+# include <fcntl.h>
+# include <sys/stat.h>
+
 
 typedef struct s_philo
 {
@@ -41,13 +43,12 @@ typedef struct s_info
 	int				t_eat;
 	int				t_sleep;
 	int				n_to_win;
-	int				stop_ind;
+	int				died_ind;
 	long long		start_time_all;
-	t_philo			**philo;
+	t_philo			philo[201];
 	sem_t			*forks;
 	sem_t			*printing;
 	sem_t			*lte_check;
-	sem_t			*stop_check;
 }	t_info;
 
 int			ft_atoi(const char *str);
@@ -59,9 +60,12 @@ int			init_semaph(t_info *info);
 void		pthread_error(void);
 void		malloc_error(void);
 void		fork_error(void);
-void		wait_phil(long long time);
+void		wait_phil(long long time, t_info *info);
 long long	ft_time(void);
-void		start_living(t_philo *philo);
+void		start_living(void *data);
 void		*checker(void *data);
 void		print_action(int ind, t_philo *philo, t_info *info);
+void		action_print(t_info *info, int id, char *string);
+int			died_check(t_info *info);
+int			fed_check(t_info *info, t_philo *philo);
 #endif
