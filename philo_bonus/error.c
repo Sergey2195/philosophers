@@ -6,7 +6,7 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:35:44 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/06 14:37:32 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/09 12:26:52 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,5 @@ void	pthread_error(void)
 void	fork_error(void)
 {
 	printf("Fork error\n");
-	exit(EXIT_FAILURE);
-}
-
-void	malloc_error(void)
-{
-	printf("Malloc error\n");
 	exit(EXIT_FAILURE);
 }

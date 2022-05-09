@@ -6,7 +6,7 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:40:02 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/07 16:57:50 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/09 12:29:06 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	eating(t_philo *philo)
 	philo->lte = ft_time();
 	philo->food_counter++;
 	sem_post(info->lte_check);
-	wait_phil(info->t_eat, info);
+	wait_phil(info->t_eat);
 	sem_post(info->forks);
 	sem_post(info->forks);
 }
@@ -45,23 +45,6 @@ void	time_to_die(t_info *info, t_philo *philo)
 		exit(1);
 	}
 	sem_post(info->lte_check);
-}
-
-void	*checker(void *data)
-{
-	t_philo	*philo;
-	t_info	*info;
-
-	philo = (t_philo *)data;
-	info = philo->info;
-	while (1)
-	{
-		time_to_die(info, philo);
-		usleep(1000);
-		if (fed_check(info, philo))
-			break ;
-	}
-	return (NULL);
 }
 
 int	died_check(t_info *info)
@@ -98,14 +81,14 @@ void	start_living(void *data)
 	philo->lte = ft_time();
 	pthread_create(&(philo->checker), NULL, checker, data);
 	if (philo->id % 2)
-		usleep(10000);
+		usleep(100);
 	while (1)
 	{
 		eating(philo);
 		if (died_check(info) || fed_check(info, philo))
 			break ;
 		action_print(info, philo->id, "is sleeping");
-		wait_phil(info->t_sleep, info);
+		wait_phil(info->t_sleep);
 		action_print(info, philo->id, "is thinking");
 		if (died_check(info))
 			break ;

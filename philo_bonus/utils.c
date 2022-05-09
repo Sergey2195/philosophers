@@ -6,7 +6,7 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:39:06 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/07 15:03:00 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/09 12:30:10 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,32 @@ long long	ft_time(void)
 	return (milliseconds);
 }
 
-void	wait_phil(long long time, t_info *info)
+void	wait_phil(long long time)
 {
 	long long	c_time;
 
 	c_time = ft_time();
 	while (1)
 	{
-		if (ft_time() - c_time >= time)
-			break;
+		if ((ft_time() - c_time) >= time)
+			break ;
 		usleep(50);
 	}
-	
+}
+
+void	*checker(void *data)
+{
+	t_philo	*philo;
+	t_info	*info;
+
+	philo = (t_philo *)data;
+	info = philo->info;
+	while (1)
+	{
+		time_to_die(info, philo);
+		usleep(1000);
+		if (fed_check(info, philo))
+			break ;
+	}
+	return (NULL);
 }

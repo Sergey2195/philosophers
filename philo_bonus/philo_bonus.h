@@ -6,7 +6,7 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:34:02 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/07 15:27:43 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/09 12:31:00 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include <semaphore.h>
 # include <fcntl.h>
 # include <sys/stat.h>
-
 
 typedef struct s_philo
 {
@@ -59,13 +58,11 @@ void		init_info(t_info *info, int argc, char **argv);
 void		init_philo(t_info *info);
 int			init_semaph(t_info *info);
 void		pthread_error(void);
-void		malloc_error(void);
 void		fork_error(void);
-void		wait_phil(long long time, t_info *info);
+void		wait_phil(long long time);
 long long	ft_time(void);
 void		start_living(void *data);
 void		*checker(void *data);
-void		print_action(int ind, t_philo *philo, t_info *info);
 void		action_print(t_info *info, int id, char *string);
 int			died_check(t_info *info);
 int			fed_check(t_info *info, t_philo *philo);

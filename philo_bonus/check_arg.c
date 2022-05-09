@@ -6,7 +6,7 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:30:40 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/07 16:26:43 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/09 12:26:25 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	check_arg(int argc, char **argv)
 
 void	check_vars(t_info *info)
 {
-	if (info->num_p <= 0 || info->t_sleep < 0 || info->t_eat < 0 || info->t_die < 0)
+	if (info->num_p <= 0 || info->t_sleep < 0 || info->t_eat < 0
+		|| info->t_die < 0)
 	{
 		printf("Problem with args value\n");
 		exit(EXIT_FAILURE);

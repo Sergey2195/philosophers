@@ -6,9 +6,8 @@ SRC	=	check_arg.c error.c ft_atoi.c init.c living.c main_bonus.c utils.c
 
 CC 		= gcc
 
-FLAGS	= 
+FLAGS	= 	-Wall -Werror -Wextra
 
-# LINKS	=	-lpthread -fsanitize=thread
 LINKS	=	-lpthread
 
 OBJS 	= $(SRC:.c=.o)

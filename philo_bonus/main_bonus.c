@@ -6,7 +6,7 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:32:02 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/07 16:54:34 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/09 12:29:49 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	exit_info(t_info *info)
 			i = 0;
 			while (i < info->num_p)
 			{	
-				kill(info->philo[i].pid, SIGKILL);
+				kill(info->philo[i].pid, SIGTERM);
 				i++;
 			}
 			break ;

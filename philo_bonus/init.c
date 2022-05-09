@@ -6,7 +6,7 @@
 /*   By: iannmari <iannmari@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:29:51 by iannmari          #+#    #+#             */
-/*   Updated: 2022/05/07 16:27:29 by iannmari         ###   ########.fr       */
+/*   Updated: 2022/05/09 12:27:42 by iannmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,14 @@ void	init_philo(t_info *info)
 {
 	int	i;
 
-	i = info->num_p;
-	while (--i >= 0)
+	i = 0;
+	while (i < info->num_p)
 	{
 		info->philo[i].id = i;
 		info->philo[i].info = info;
 		info->philo[i].food_counter = 0;
 		info->philo[i].lte = 0;
+		i++;
 	}
 }
 
@@ -56,8 +57,9 @@ int	init_semaph(t_info *info)
 	info->printing = sem_open("p_printing", O_CREAT, S_IRWXU, 1);
 	info->lte_check = sem_open("lte_check", O_CREAT, S_IRWXU, 1);
 	info->dead_check = sem_open("dead_check", O_CREAT, S_IRWXU, 1);
-	if (info->forks == SEM_FAILED || info->printing == SEM_FAILED || info->lte_check == SEM_FAILED)
-			return (-1);
+	if (info->forks == SEM_FAILED || info->printing == SEM_FAILED
+		|| info->lte_check == SEM_FAILED)
+		return (-1);
 	else
 		return (0);
 }
